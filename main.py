@@ -1,13 +1,18 @@
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from fastapi.responses import JSONResponse
 
 app = FastAPI()
 
 clients = []
 
+@app.get("/")
+async def root():
+    return JSONResponse({"message": "Servidor FastAPI funcionando!"})
+
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
-    clients.append(websocket) # type: ignore
+    clients.append(websocket)  # type: ignore
     print("Cliente conectado")
     try:
         while True:
@@ -15,5 +20,5 @@ async def websocket_endpoint(websocket: WebSocket):
             print(f"Recebido: {data}")
             await websocket.send_text(f"Servidor recebeu: {data}")
     except WebSocketDisconnect:
-        clients.remove(websocket) # type: ignore
+        clients.remove(websocket)  # type: ignore
         print("Cliente desconectado")
