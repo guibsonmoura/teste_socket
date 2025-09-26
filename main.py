@@ -9,6 +9,10 @@ clients = []
 async def root():
     return JSONResponse({"message": "Servidor FastAPI funcionando!"})
 
+@app.post("/post")
+async def post_endpoint():
+    return JSONResponse({"message": "funcionando"})
+
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
