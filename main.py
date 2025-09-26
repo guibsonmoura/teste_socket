@@ -19,7 +19,7 @@ async def websocket_endpoint(websocket: WebSocket):
     clients.append(websocket)  # type: ignore
     print("Cliente conectado")
     try:
-        #testando
+        #testando de novo
         while True:
             data = await websocket.receive_text()
             print(f"Recebido: {data}")
